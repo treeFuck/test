@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "init": "sh test.sh",
+    "test": "cp commit-msg .git/hooks/commit-msg",
+    "mygit": "tnpm run test && git add . && git commit -m \"aaa\" "
+  },
+  "husky": {
+    "hooks": {}
+  }
+}
