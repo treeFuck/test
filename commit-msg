@@ -13,11 +13,12 @@ echo -e "\n\n[commit-msg 为 \"${msg}\"]\n "
 
 # 2. 编写正则
 
-reg=[0-9]+
+releaseRE=^v\d
+commitRE=^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps|style)(\(.+\))?: .{1,50}
 
 # 3. 进行正则匹配
 
-if [[ $msg =~ $reg ]]
+if [[ $msg =~ $releaseRE && $msg =~ $commitRE ]]
 then
   echo -e "[该 msg 符合规范，可以提交]"
   exit 0
