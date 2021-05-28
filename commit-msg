@@ -1,40 +1,24 @@
 #!/usr/bin/env bash
 
+exit 0;
+
 # 1. 获取 msg 文本
-
-echo “commit-msg 的拦截”
-
-exit 0
-
 echo ${1}
 msg=`cat ${1}`
-echo -e "\n\n[commit-msg 为 \"${msg}\"]\n "
-
-# commit-msg 的 msg 是存储到 .git/COMMIT_EDITMSG 文件里的，
-# 而这个文件会作为第一个参数来执行本脚本，
-# 所以我们可以通过 ${1} 获取到这个文件，然后通过 cat 命令来读取 msg 文本
-
+echo -e "\n\n『commit-msg 为 \"${msg}\"』\n "
 
 # 2. 编写正则
-
-headerReg=^(feat|fix):
-
-
-
-releaseRE=^v\d
-commitRE=^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps|style)(\(.+\))?: .{1,50}
+headerReg=^(feat|fix|style|):
 
 # 3. 进行正则匹配
-
-if [[ $msg =~ $releaseRE && $msg =~ $commitRE ]]
+if [[ $msg =~ $headerReg && ]]
 then
-  echo -e "[该 msg 符合规范，可以提交]"
   exit 0
 else
-  echo -e "[该 msg 不符合规范，请按照以下规则进行书写] \n "
-  echo -e "[规范1]: 未定…… "
-  echo -e "[规范2]: 未定…… "
-  echo -e "[规范3]: 未定…… "
+  echo -e '[该 msg 不符合规范，请在 msg 首部添加以下字段] \n '
+  echo -e ' `feat: xxx`    →    A new feature'
+  echo -e ' `fix: xxx`     →    A bug fix'
+  echo -e ' `style: xxx`   →    Changes that do not affect the meaning of code'
   exit 1
 fi
 
