@@ -2,6 +2,8 @@
 
 # 1. 获取 msg 文本
 
+exit 0
+
 echo ${1}
 msg=`cat ${1}`
 echo -e "\n\n[commit-msg 为 \"${msg}\"]\n "
