@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-echo “拦截”
+echo “拦截asasa”
 
 exit 1;
