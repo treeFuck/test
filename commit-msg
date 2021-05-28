@@ -15,6 +15,10 @@ echo -e "\n\n[commit-msg 为 \"${msg}\"]\n "
 
 # 2. 编写正则
 
+headerReg=^(feat|fix):
+
+
+
 releaseRE=^v\d
 commitRE=^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps|style)(\(.+\))?: .{1,50}
 
