@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-echo “拦截asasa”
+echo “pre-commit 的拦截”
 
-exit 1;
+exit 0;

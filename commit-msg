@@ -2,6 +2,8 @@
 
 # 1. 获取 msg 文本
 
+echo “commit-msg 的拦截”
+
 exit 0
 
 echo ${1}
