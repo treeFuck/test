@@ -10,7 +10,7 @@ headerReg="^(feat|fix|style):"
 # 3. 进行正则匹配
 if [[ $msg =~ $headerReg ]]
 then
-  echo -e '\033[32m commit-msg 校验通过 \n\033[0m'
+  echo -e '\033 --> [32m commit-msg 校验通过 \n\033[0m'
   exit 0
 else
   echo -e '\033[31m'
