@@ -17,7 +17,7 @@ let getMsg = function() {
     let msgFile = process.argv[2];
     fs.readFile(msgFile, 'utf8', (err, data) => {
       if (err) reject(err);
-      else resolve(data);
+      else resolve(data.replace(/[\r\n]/g,""));
     })
   })
 }
@@ -29,7 +29,7 @@ let inputMsg = async function() {
     message: '重新输入 msg: ',
     name: 'msg',
   };
-  return inquirer.prompt(inputPrompt).then(answers => answers.msg);
+  return inquirer.prompt(inputPrompt).then(answers => answers.msg.replace(/[\r\n]/g,""));
 }
 
 // 校验 commit-msg
@@ -53,7 +53,7 @@ let testMsg = async function(msg) {
           break;
         case 1:
           let msg = await inputMsg();
-          res = testMsg(msg);
+          res = await testMsg(msg);
           console.log("[重新输入]");
           break;
         case 2:
@@ -83,10 +83,8 @@ async function main () {
   process.exit(res);
 }
 
-// process.exit(1);
-// main();
-let str = "asas\nsasasa";
-exec(" echo " + str);
+main();
+
 
 
 
