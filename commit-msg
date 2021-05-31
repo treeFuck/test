@@ -31,14 +31,14 @@ let getMsg = function() {
 let regTest = function(msg) {
   let isLegal = headerReg.test(msg);
   if (isLegal) {
-    logger.info(" --> msg 校验通过");
+    logger.info(" --> msg 校验通过 ");
   } else {
     logger.error(" --> 该 msg 不符合规范，请在 msg 首部添加以下字段: \n");
-    logger.error("     `feat: xxx`    →   A new feature");
-    logger.error("     `fix: xxx`     →   A bug fix");
-    logger.error("     `style: xxx`   →   Changes that do not affect the meaning of code'");
-    logger.error("\n")
+    logger.error("     `feat: xxx`    →   A new feature ");
+    logger.error("     `fix: xxx`     →   A bug fix ");
+    logger.error("     `style: xxx`   →   Changes that do not affect the meaning of code ");
   }
+  console.log("\n");
   return isLegal;
 }
 
