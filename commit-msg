@@ -27,6 +27,9 @@ let getMsg = function() {
   })
 }
 
+
+
+
 // 正则校验
 let regTest = function(msg) {
   let isLegal = headerReg.test(msg);
