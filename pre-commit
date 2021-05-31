@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-echo “pre-commit 的拦截”
+echo pre-commit 的拦截
 
-exit 0;

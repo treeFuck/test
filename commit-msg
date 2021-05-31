@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
-exit 0;
-
 # 1. 获取 msg 文本
-echo ${1}
 msg=`cat ${1}`
 echo -e "\n\n『commit-msg 为 \"${msg}\"』\n "
 
 # 2. 编写正则
-headerReg=^(feat|fix|style|):
+headerReg="^(feat|fix|style):"
 
 # 3. 进行正则匹配
-if [[ $msg =~ $headerReg && ]]
+if [[ $msg =~ $headerReg ]]
 then
   exit 0
 else
