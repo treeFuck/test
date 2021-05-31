@@ -47,7 +47,7 @@ let regTest = function(msg) {
 
 async function main () {
   let msg = await getMsg();
-  logger.info(` --> commit-msg 为 ${msg}`);
+  logger.info(`\n --> commit-msg 为 ${msg}`);
   regTest(msg);
 }
 
