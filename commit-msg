@@ -37,6 +37,7 @@ let regTest = function(msg) {
     logger.error("     `feat: xxx`    →   A new feature");
     logger.error("     `fix: xxx`     →   A bug fix");
     logger.error("     `style: xxx`   →   Changes that do not affect the meaning of code'");
+    logger.error("\n")
   }
   return isLegal;
 }
