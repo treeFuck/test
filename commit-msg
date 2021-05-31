@@ -27,42 +27,31 @@ let getMsg = function() {
   })
 }
 
-
-
-
 // 正则校验
 let regTest = function(msg) {
   let isLegal = headerReg.test(msg);
   if (isLegal) {
     logger.info(" --> msg 校验通过 ");
   } else {
-    logger.error(" --> 该 msg 不符合规范，请在 msg 首部添加以下字段: \n");
-    logger.error("     `feat: xxx`    →   A new feature ");
-    logger.error("     `fix: xxx`     →   A bug fix ");
-    logger.error("     `style: xxx`   →   Changes that do not affect the meaning of code ");
+    logger.error(" --> 该 msg 不符合规范，请在 msg 首部添加 ( feat | fix | style ) 字段 ");
   }
-  console.log("");
   return isLegal;
 }
 
 async function main () {
   let msg = await getMsg();
   logger.info(`\n --> commit-msg 为 ${msg}`);
-  regTest(msg);
+  let regRes = regTest(msg);
+  if (regRes) {
+    process.exit(0);
+  } else {
+
+  }
+
+  
 }
 
 main();
-
-
-
-// 1. 获取 msg 文本
-
-
-
-// 2. 编写正则
-
-
-// 3. 进行正则匹配
 
 
 
