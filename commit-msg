@@ -1,57 +1,91 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const colors = require('colors');
+const inquirer = require('inquirer');
 const headerReg = /^(feat|fix|style):/;
+const errOptions = [
+  "强制提交",
+  "重新输入 msg",
+  "给 msg 加上标识前缀",
+  "退出"
+];
 
-// 封装 log 方法
-const logger = {
-  info(msg){
-    console.log(colors.green(msg));
-  },
-  warn(msg){
-    console.log(colors.yellow(msg));
-  },
-  error(msg){
-    console.log(colors.red(msg));
-  }
-};
-
-// 获取 commit-msg 文本
+// 获取 commit-msg
 let getMsg = function() {
   return new Promise((resolve, reject) => {
     let msgFile = process.argv[2];
-    fs.readFile(msgFile, (err, data) => {
+    fs.readFile(msgFile, 'utf8', (err, data) => {
       if (err) reject(err);
       else resolve(data);
     })
   })
 }
 
-// 正则校验
-let regTest = function(msg) {
-  let isLegal = headerReg.test(msg);
-  if (isLegal) {
-    logger.info(" --> msg 校验通过 ");
-  } else {
-    logger.error(" --> 该 msg 不符合规范，请在 msg 首部添加 ( feat | fix | style ) 字段 ");
-  }
-  return isLegal;
+// 输入 msg
+let inputMsg = async function() {
+  let inputPrompt = {
+    type: 'input',
+    message: '重新输入 msg: ',
+    name: 'msg',
+  };
+  return inquirer.prompt(inputPrompt).then(answers => answers.msg);
 }
+
+// 校验 commit-msg
+let testMsg = async function(msg) {
+  let res = 0;
+  if (headerReg.test(msg)) {
+    console.log(colors.green(`Success: msg-"${msg}"  校验通过 `));
+  } else {
+    let errPrompt = {
+      type: 'list',
+      name: 'choose',
+      choices: errOptions,
+      message: colors.red(`Error: msg-"${msg}" 不符合规范，msg 必须以 ( feat | fix | style ) 开头，请选择以下操作以继续: `)
+    };
+    await inquirer.prompt(errPrompt).then( async (answer) => {
+      let index = errOptions.indexOf(answer.choose);
+      switch(index) {
+        case 0:
+          res = 0;
+          console.log("[强制提交]");
+          break;
+        case 1:
+          let msg = await inputMsg();
+          res = testMsg(msg);
+          console.log("[重新输入]");
+          break;
+        case 2:
+          res = 1;
+          console.log("[加上前缀]");
+          break;
+        case 3:
+          res = 1;
+          console.log("[在 msg 前加前缀]");
+          break;
+        default:
+          res = 1;
+          console.log("退出");
+          break;
+      }
+
+    })
+  }
+  return res;
+}
+
 
 async function main () {
   let msg = await getMsg();
-  logger.info(`\n --> commit-msg 为 ${msg}`);
-  let regRes = regTest(msg);
-  if (regRes) {
-    process.exit(0);
-  } else {
-
-  }
-
-  
+  let res = await testMsg(msg);
+  console.log("最后的状态码是：", res);
+  process.exit(res);
 }
 
+// process.exit(1);
 main();
+
+
 
 
 

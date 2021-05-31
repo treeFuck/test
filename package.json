@@ -2,12 +2,13 @@
   "scripts": {
     "init": "sh test.sh",
     "test": "cp commit-msg .git/hooks/commit-msg && chmod 755 .git/hooks/commit-msg && cp pre-commit .git/hooks/pre-commit && chmod 755 .git/hooks/pre-commit",
-    "mygit": "tnpm run test && git add . && git commit -m \"feat111: ttttttt\" "
+    "mygit": "tnpm run test && git add . && git commit -m \"feat11111: ttttttt\" "
   },
   "husky": {
     "hooks": {}
   },
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "inquirer": "^8.1.0"
   }
 }
