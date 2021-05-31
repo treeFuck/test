@@ -1,7 +1,59 @@
 #!/usr/bin/env node
+const fs = require('fs');
+const colors = require('colors');
+const headerReg = /^(feat|fix|style):/;
+
+// 封装 log 方法
+const logger = {
+  info(msg){
+    console.log(`[Info] ${colors.green(msg)}`);
+  },
+  warn(msg){
+    console.log(`[Warn] ${colors.yellow(msg)}`);
+  },
+  error(msg){
+    console.log(`[Error] ${colors.red(msg)}`);
+  }
+};
+
+// 获取 commit-msg 文本
+let getMsg = function() {
+  return new Promise((resolve, reject) => {
+    let msgFile = process.argv[2];
+    fs.readFile(msgFile, (err, data) => {
+      if (err) reject(err);
+      else resolve(data);
+    })
+  })
+}
+
+// 正则校验
+let regTest = function(msg) {
+  let isLegal = headerReg.test(msg);
+  if (isLegal) {
+    logger.info(" msg 校验通过");
+  } else {
+    logger.error(" 该 msg 不符合规范，请在 msg 首部添加以下字段: \n");
+    logger.error("     `feat: xxx`    →   A new feature");
+    logger.error("     `fix: xxx`     →   A bug fix");
+    logger.error("     `style: xxx`   →   Changes that do not affect the meaning of code'");
+  }
+  return isLegal;
+}
+
+async function main () {
+  let msg = await getMsg();
+  logger.info(` commit-msg 为 ${msg}`);
+  regTest(msg);
+}
+
+main();
+
+
 
 // 1. 获取 msg 文本
-console.log('hello ', process.argv[0], process.argv[1], process.argv[2]);
+
+
 
 // 2. 编写正则
 
