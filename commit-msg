@@ -74,8 +74,6 @@ let testMsg = async function(msg) {
   }
   return res;
 }
-
-
 async function main () {
   let msg = await getMsg();
   let res = await testMsg(msg);
