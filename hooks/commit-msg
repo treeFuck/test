@@ -92,7 +92,6 @@ let testMsg = async function(msg) {
   return res;
 }
 
-
 async function main() {
   let msg = await getMsg();
   // 这里加一个校验，如果是 merge 生成的 msg，不校验
