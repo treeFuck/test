@@ -1,5 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-msg=`cat $1` 
-exec < /dev/tty && node ./hooks/commit-msg $msg
+exec < /dev/tty && node ./hooks/commit-msg $1 `cat $1` 
