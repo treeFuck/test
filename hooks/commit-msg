@@ -105,7 +105,6 @@ async function main() {
   let msg = await getMsg();
 
   // 这里加一个校验，如果是 merge 生成的 msg，不校验
-
   let res = await testMsg(msg);
   console.log("最后的状态码是：", res);
   process.exit(res);
