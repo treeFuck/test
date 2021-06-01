@@ -85,10 +85,8 @@ async function main() {
   process.exit(res);
 }
 
-// main();
+main();
  
-console.log("dsadasdasdasddasdasdasdasdasdsdasdasdasdas")
-
 
 
 
