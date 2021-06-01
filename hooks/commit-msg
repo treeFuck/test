@@ -10,6 +10,11 @@ const errOptions = [
   "3. 给 msg 加上标识前缀",
   "4. 退出"
 ];
+const prefixOptions = [
+  "feat:     →   A new feature ",
+  "fix:      →   A bug fix ",
+  "style:    →   Changes that do not affect the meaning of code "
+]
 let msgChange = false; // 标记 msg 有没有被修改过
 
 // 读取 msgFile
@@ -42,6 +47,17 @@ let inputMsg = function() {
   return inquirer.prompt(inputPrompt).then(answers => answers.msg);
 }
 
+// 给 msg 加入前缀
+let addMsgPrefix = async function(msg) {
+  let prefixPrompt = {
+    type: 'list',
+    name: 'choose',
+    choices: prefixOptions,
+    message: "选择你要添加的 msg 前缀: "
+  };
+  return await inquirer.prompt(prefixPrompt).then(answer => `${answer.choose.split(":")[0]}: ${msg}`);
+}
+
 // 校验 commit-msg
 let testMsg = async function(msg) {
   let res = 0;
@@ -69,8 +85,9 @@ let testMsg = async function(msg) {
         console.log("[重新输入]");
         break;
       case 2:
+        msgChange = true;
+        res = await testMsg(await addMsgPrefix(msg));
         console.log("[加上前缀]");
-        res = 1;
         break;
       case 3:
         console.log("[退出]");
@@ -88,13 +105,23 @@ let testMsg = async function(msg) {
 
 async function main() {
   let msg = await getMsg();
+
+  // 这里加一个校验，如果是 merge 生成的 msg，不校验
+
   let res = await testMsg(msg);
   console.log("最后的状态码是：", res);
   process.exit(res);
 }
 
-main();
- 
+
+main().catch(err => {
+  console.log(colors.red("Error: commit-msg hook 执行失败，请联系 bolewang "));
+  process.exit(1);
+});
+
+
+
+
 
 
 
