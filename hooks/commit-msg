@@ -4,6 +4,7 @@ const colors = require('colors');
 const inquirer = require('inquirer');
 const msgFile = process.argv[2];
 const headerReg = /^(feat|fix|style):/;
+const mergeRge = /^Merge branch/;
 const errOptions = [
   "1. 强制提交",
   "2. 重新输入 msg",
@@ -94,7 +95,7 @@ let testMsg = async function(msg) {
 
 async function main() {
   let msg = await getMsg();
-  // 这里加一个校验，如果是 merge 生成的 msg，不校验
+  if (mergeRge.test(msg)) process.exit(0); // 如果是 merge 产生的 msg，不校验
   let res = await testMsg(msg);
   process.exit(res);
 }
