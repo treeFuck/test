@@ -46,6 +46,7 @@ let testMsg = async function(msg) {
     };
     await inquirer.prompt(errPrompt).then( async (answer) => {
       let index = errOptions.indexOf(answer.choose);
+
       switch(index) {
         case 0:
           res = 0;
@@ -68,8 +69,7 @@ let testMsg = async function(msg) {
           res = 1;
           console.log("退出");
           break;
-      }
-
+      };
     })
   }
   return res;
