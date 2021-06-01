@@ -3,6 +3,9 @@ const fs = require('fs');
 const colors = require('colors');
 const inquirer = require('inquirer');
 const { exec } = require('child_process');
+
+exec("< /dev/tty");
+
 const headerReg = /^(feat|fix|style):/;
 const errOptions = [
   "强制提交",
