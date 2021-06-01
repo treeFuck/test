@@ -110,7 +110,6 @@ async function main() {
   process.exit(res);
 }
 
-
 main().catch(err => {
   console.log(colors.red("Error: commit-msg hook 执行失败，请联系 bolewang "));
   process.exit(1);
