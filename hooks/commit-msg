@@ -25,7 +25,6 @@ let getMsg = function() {
   })
 }
 
-
 // 输入 msg
 let inputMsg = async function() {
   let inputPrompt = {
