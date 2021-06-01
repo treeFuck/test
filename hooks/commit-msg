@@ -69,7 +69,7 @@ let testMsg = async function(msg) {
       type: 'list',
       name: 'choose',
       choices: errOptions,
-      message: colors.red(`Error: msg-"${msg.replace(/[\r\n]/g,'')}" 不符合规范，msg 必须以 ( feat | fix | style ) 开头，请选择以下操作以继续: `)
+      message: colors.red(`Error: msg-"${msg.replace(/[\r\n]/g,'')}" 不符合规范，msg 必须以 ( feat: | fix: | style: ) 开头，请选择以下操作以继续: `)
     };
     let index = await inquirer.prompt(errPrompt).then(answer => errOptions.indexOf(answer.choose));
     switch(index) {
