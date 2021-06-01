@@ -64,8 +64,8 @@ let testMsg = async function(msg) {
         res = 0;
         break;
       case 1:
-        let msg = await inputMsg();
-        res = await testMsg(msg);
+        msgChange = true;
+        res = await testMsg(await inputMsg());
         console.log("[重新输入]");
         break;
       case 2:
