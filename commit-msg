@@ -82,12 +82,8 @@ async function main () {
 }
 
 
+main();
 
-try {
-  main();
-} catch (error) {
-  process.exit(1);
-}
 
 
 
