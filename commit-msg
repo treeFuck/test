@@ -74,13 +74,13 @@ let testMsg = async function(msg) {
   }
   return res;
 }
-async function main () {
+async function main() {
   let msg = await getMsg();
+  console.log("1111");
   let res = await testMsg(msg);
   console.log("最后的状态码是：", res);
   process.exit(res);
 }
-
 
 main();
 
