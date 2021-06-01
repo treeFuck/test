@@ -17,7 +17,7 @@ const errOptions = [
 // 获取 commit-msg
 let getMsg = function() {
   return new Promise((resolve, reject) => {
-    let msgFile = process.argv[2];
+    let msgFile = process.argv[1];
     fs.readFile(msgFile, 'utf8', (err, data) => {
       if (err) reject(err);
       else resolve(data.replace(/[\r\n]/g,""));
